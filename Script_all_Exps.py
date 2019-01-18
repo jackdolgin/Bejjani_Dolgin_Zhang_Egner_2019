@@ -142,7 +142,7 @@ Instr_1j = visual.TextStim(win=win, name='Instr_1j', color='black',
     text='To get acclimated with the demands of each task, you will start with some practice trials. Press the spacebar when you are ready to start the practice trials.')
 
 Instr1 = visual.TextStim(win=win, name='Instr1', color='black',
-    text='You have finished the practice trials and your accurately answered $str(corrP) trials. The experiment starts now. Press the spacebar to continue.')
+    text='You have finished the practice trials and you accurately answered $str(corrP) trials. The experiment starts now. Press the spacebar to continue.')
 
 Instr_2 = visual.TextStim(win=win, name='Instr_2',color='black',
     text='From now on, it is important to respond both accurately and quickly. Accurate but slow responses are now counted as incorrect trials. Please adjust the speed of your responses according to the performance feedback you receive. Press the spacebar to continue.')
