@@ -7,8 +7,7 @@ Preregistered Direct Replication, Stage 1 in principle acceptance at *Psychologi
 
 ## Organization
 * Stimuli used in the experiment, namely two .png images and two .wav clips, are stored in [stimuli](stimuli).
-* The task script for all four experiments in this study are in a single python file, [Script_all_Exps.py](Script_all_Exps.py). Entering the session number in the script's popup corresponds with the experiment number. The post-task for experiments 1 and 2 can also be run from this script. 
-* The post-task test for experiments 3 and 4 and the demographics form for all four studies can be found in the [Post_Task](Post_Task) directory. 
+* The task script for all four experiments in this study are in a single python file, [Script_all_Exps.py](Script_all_Exps.py). Entering the session number in the script's popup corresponds with the experiment number. The post-task for experiments 1 and 2 can also be run from this script.
 
 ## Dependencies
 The task script was written in PsychoPy [1.90.3](https://github.com/psychopy/psychopy/releases/tag/1.90.3) utilizing Python [3.7.0](https://www.python.org/downloads/release/python-370/)
