@@ -38,7 +38,9 @@ elif int(expInfo['session']) == 3:
 elif int(expInfo['session']) == 4:
     cueversions = [1,2,2,4,3,3,4,5,1,5,0,0,5,0,0,4,1,3,3,5,2,2,4,1]
 
-expInfo['cueVersion'] = cueversions[int(expInfo['participant']) - 1]
+CueVersion = cueversions[int(expInfo['participant'])%100 - 1]
+
+expInfo['cueVersion'] = CueVersion
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
 filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expName, "ses_" + expInfo['session'])
@@ -75,7 +77,7 @@ capconsonantSet = ['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','
 instr_letters = ['O','o','K','k','U','u','S','s','C','c','W','w','Z','z','V','v','X','x']
 
 cuelist = [[2,4,8,],[2,8,4],[4,2,8],[4,8,2],[8,2,4],[8,4,2]]
-cueSet = cuelist[cueversions[int(expInfo['participant']) - 1]]
+cueSet = cuelist[CueVersion]
 cueA = cueSet[0] #cue for predictive switch
 cueB = cueSet[1] #non-predictive cue
 cueC = cueSet[2] #cue for predictive repeat
