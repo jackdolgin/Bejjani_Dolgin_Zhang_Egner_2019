@@ -30,11 +30,11 @@ expInfo['frameRate'] = win.getActualFrameRate()
 # cueversions = np.repeat([0,1,2,3,4,5],4)
 # np.random.shuffle(cueversions)
 if int(expInfo['session']) == 1:
-    cueversions = [3,0,3,3,2,3,1,4,2,5,0,5,4,2,5,1,0,4,2,5,4,1,0,1]
+    cueversions = [3,0,3,3,2,3,1,4,2,5,0,5,4,2,5,1,0,4,2,5,4,1,0,1,5.0,1,3,2,4]
 elif int(expInfo['session']) == 2:
     cueversions = [1,2,5,4,1,5,4,0,0,1,4,4,0,2,3,2,3,3,5,1,0,5,3,2]
 elif int(expInfo['session']) == 3:
-    cueversions = [4,4,2,5,0,1,5,5,1,4,3,0,2,4,1,3,3,1,3,2,0,0,5,2]
+    cueversions = [4,4,4,4,2,5,0,1,5,5,1,4,3,0,2,4,1,3,3,1,3,2,0,0,5,2]
 elif int(expInfo['session']) == 4:
     cueversions = [1,2,2,4,3,3,4,5,1,5,0,0,5,0,0,4,1,3,3,5,2,2,4,1]
 
@@ -511,10 +511,10 @@ for rep in range(5 - (int(expInfo['session']))/3):
                 if frameN == fix_duration + cue_duration:
                     Cue.tEnd = t
                     Cue.setAutoDraw(False)
-                elif frameN == fix_duration + cue_duration + mask_delay:
+                elif frameN == (fix_duration + cue_duration + mask_delay) and (int(expInfo['session']) < 3):
                     Mask.tStart = t
                     Mask.setAutoDraw(True)
-                elif frameN == fix_duration + cue_duration + mask_delay + mask_duration:
+                elif frameN == (fix_duration + cue_duration + mask_delay + mask_duration) and (int(expInfo['session']) < 3):
                     Mask.tEnd = t
                     Mask.setAutoDraw(False)
                     if rep == 4:
