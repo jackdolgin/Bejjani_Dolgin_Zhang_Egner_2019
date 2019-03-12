@@ -146,8 +146,14 @@ Instr_1j = visual.TextStim(win=win, name='Instr_1j', color='black',
 Instr1 = visual.TextStim(win=win, name='Instr1', color='black',
     text='You have finished the practice trials and you accurately answered $str(corrP) trials. The experiment starts now. Press the spacebar to continue.')
 
-Instr_2 = visual.TextStim(win=win, name='Instr_2',color='black',
+Instr_2a = visual.TextStim(win=win, name='Instr_2a',color='black',
     text='From now on, it is important to respond both accurately and quickly. Accurate but slow responses are now counted as incorrect trials. Please adjust the speed of your responses according to the performance feedback you receive. Press the spacebar to continue.')
+
+Instr_2b = visual.TextStim(win=win, name='Instr_2b',color='black',
+    text='As a reminder, "' + str(cueA) +  '" will precede trials in which the letter judgment (consonant/vowel vs. uppercase/lowercase) will switch from that of the previous trial. "' + str(cueC) '" will precede trials in which the letter judgment will remain the same as in the previous trial.')
+
+Instr_2c = visual.TextStim(win=win, name='Instr_1c_3', color='black',
+    text='"' + str(cueB) + '" will precede trials in which the letter judgment will either switch or remain the same from the previous trial. You may use this information to aid your performance. Press the spacebar to proceed.')
 
 InstrText = visual.TextStim(win=win, name='InstrTextU', color='black',
     text='default text', pos=(0, 0.5))
@@ -381,8 +387,8 @@ trialcounter = -ptrials
 trialmatrix = expmatrix(ptrials)
 trials = range(ptrials)
 for rep in range(5 - (int(expInfo['session']))/3):
-    
-    
+
+
     ##--------------------------START MAIN EXPERIMENT-------------------------##
 
     if rep > 0:
@@ -398,13 +404,24 @@ for rep in range(5 - (int(expInfo['session']))/3):
         elif rep < 4:
             rt_thresh = float(np.percentile(RTF, 60, interpolation = 'nearest'))/framelength
             if rep == 2:
-                Instr_2.setAutoDraw(True)
+                Instr_2a.setAutoDraw(True)
                 while len(event.getKeys(keyList=['space'])) == 0:
                     win.flip()
-                Instr_2.setAutoDraw(False)
+                Instr_2a.setAutoDraw(False)
                 trials = range(50, 150)
             else:
-                trials = range(150,250)
+                trials = range(150, 250)
+            Instr_2b.setAutoDraw(True)
+            bloop = 0
+            while int(expInfo['session'])%2 == 0 and bloop < 2:
+                event.clearEvents(eventType='keyboard')
+                if bloop == 1:
+                    Instr_2b.setAutoDraw(False)
+                    Instr_2c.setAutoDraw(True)
+                if event.getKeys(keyList=["space"]):
+                    bloop += 1
+                win.flip()
+            Instr_2c.setAutoDraw(False)
         else:
             Post_Instr_1.setAutoDraw(True)
             while len(event.getKeys(keyList=["space"])) == 0:
@@ -481,7 +498,7 @@ for rep in range(5 - (int(expInfo['session']))/3):
         key_resp = event.BuilderKeyResponse()
         Fixation.setAutoDraw(True)
         Fixation.tStart = t
-        
+
 
         ##--------------------------WHILE LOOP BEGINS-------------------------##
 
@@ -497,7 +514,7 @@ for rep in range(5 - (int(expInfo['session']))/3):
                 theseKeys = event.getKeys()
                 if len(theseKeys) > 0:
                     theseKeys[0] = theseKeys[0].split('_')[-1]
-                
+
 
             ##--------------------SHAPES UPDATE-------------------------------##
 
@@ -593,7 +610,7 @@ for rep in range(5 - (int(expInfo['session']))/3):
 
 
 event.clearEvents(eventType='keyboard')
-Ending.setAutoDraw(True) 
+Ending.setAutoDraw(True)
 while len(event.getKeys(keyList=["space"])) == 0:
     win.flip()
 Ending.setAutoDraw(False)
