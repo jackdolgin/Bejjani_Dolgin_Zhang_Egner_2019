@@ -134,8 +134,8 @@ Instr_1g = visual.TextStim(win=win, name='Instr_1g', color='black',
 Instr_1h = visual.TextStim(win=win, name='Instr_1h', color='black',
     text='Performance feedback is provided. You will hear a high-frequency tone if you respond correctly and a low-frequency tone if you respond incorrectly. To give you a visualization of the task, press the spacebar to move on to the next page.')
 
-Mapping = visual.ImageStim(win=win, name='Mapping', image='stimuli\Mapping.png',
-    size=(1,2))
+Mapping = visual.ImageStim(win=win, name='Mapping',
+    image = os.path.join('stimuli','Mapping.png'), size=(1,2))
 
 Instr_1i = visual.TextStim(win=win, name='Instr_1i', color='black',
     text='Since you will be asked to distinguish between uppercase and lowercase in some trials, some sample letters will be presented to get you familiar with the font size. Press the spacebar to continue.')
@@ -146,17 +146,31 @@ Instr_1j = visual.TextStim(win=win, name='Instr_1j', color='black',
 Instr1 = visual.TextStim(win=win, name='Instr1', color='black',
     text='You have finished the practice trials and you accurately answered $str(corrP) trials. The experiment starts now. Press the spacebar to continue.')
 
+Instr_1k = visual.TextStim(win=win, name='Instr_1k', color='black',
+    text='Press the spacebar to start the main experiment.')
+
 Instr_2a = visual.TextStim(win=win, name='Instr_2a',color='black',
     text='From now on, it is important to respond both accurately and quickly. Accurate but slow responses are now counted as incorrect trials. Please adjust the speed of your responses according to the performance feedback you receive. Press the spacebar to continue.')
 
 Instr_2b = visual.TextStim(win=win, name='Instr_2b',color='black',
-    text='As a reminder, "' + str(cueA) +  '" will precede trials in which the letter judgment (consonant/vowel vs. uppercase/lowercase) will switch from that of the previous trial. "' + str(cueC) '" will precede trials in which the letter judgment will remain the same as in the previous trial.')
+    text='As a reminder, "' + str(cueA) +  '" will precede trials in which the letter judgment (consonant/vowel vs. uppercase/lowercase) will switch from that of the previous trial. "' + str(cueC) + '" will precede trials in which the letter judgment will remain the same as in the previous trial.')
 
 Instr_2c = visual.TextStim(win=win, name='Instr_1c_3', color='black',
     text='"' + str(cueB) + '" will precede trials in which the letter judgment will either switch or remain the same from the previous trial. You may use this information to aid your performance. Press the spacebar to proceed.')
 
 InstrText = visual.TextStim(win=win, name='InstrTextU', color='black',
     text='default text', pos=(0, 0.5))
+
+CueTestA = visual.TextStim(win=win, name='CueTest', color='black',
+    text='Press the number associated with only task-switch (Hard) trials',)
+
+CueTestB = visual.TextStim(win=win, name='CueTest', color='black',
+    text='Press the number unpredictive of the upcoming trial (neutral)')
+
+CueTestC = visual.TextStim(win=win, name='CueTest', color='black',
+    text='Press the number associated with only task-repeat (easy) trials')
+
+CueTest_list = [[CueTestA, cueA], [CueTestB, cueB], [CueTestC, cueC]]
 
 Post_Instr_1 = visual.TextStim(win=win, name='Post_Instr_1', color='black',
     text='Welcome to the post-test! You will answer a few questions about the experimental stimuli and do some judgement tasks. Press the spacebar to continue.')
@@ -170,15 +184,14 @@ Post_Q2 = visual.TextStim(win=win, name='Post_Q2', color='black',
 Post_Q3 = visual.TextStim(win=win, name='Post_Q3', color='black',
     text='What is the identity of this brief stimulus presented before the 5 Xs? If it is a number, press N; If it is a symbol, press S; If it is a letter, press L. Even if you are not explicitly aware of the stimulus, you are still encouraged to guess.')
 
-Post_Instr_2 = visual.TextStim(win=win, name='Post_Instr_2', color='black',
-    text='In this session, a letter, digit, or symbol will be presented before the 5 Xs. If you can see or guess its identity, press the corresponding key (e.g., if you see 7, press 7; if you see \'b\', press b). If you did not see anything and cannot guess, then press enter. There is no time limit to respond if you are uncertain about your response. Press the spacebar to begin.')
-
 
 ##-------------------------------SHAPES---------------------------------------##
 
 Cue = visual.TextStim(win=win, name='Cue', color='black', text='default text')
 
-Mask = visual.ImageStim(win=win, name='Mask', image='stimuli\Mask.png', size=(0.42, 0.5), interpolate = True)
+Mask = visual.ImageStim(win=win, name='Mask',
+    image = os.path.join('stimuli','Mask.png'),
+    size=(0.42, 0.5), interpolate = True)
 
 StimLetter = visual.TextStim(win=win, name='StimLetter', text='default text', color='black')
 
@@ -191,7 +204,8 @@ Fixation = visual.TextStim(win=win, name='Fixation', color='black', text='+')
 
 sound_clip = sound.Sound('A', secs=-1)
 sound_clip.setVolume(1)
-soundfiles = ['stimuli\ding.wav','stimuli\chord.wav']
+soundfiles = [os.path.join('stimuli','ding.wav'),
+              os.path.join('stimuli','chord.wav')]
 
 
 ##-------------------------INTERVALS & DURATION SIZES-------------------------##
@@ -386,6 +400,7 @@ corrP = 0
 trialcounter = -ptrials
 trialmatrix = expmatrix(ptrials)
 trials = range(ptrials)
+cloop = 0
 for rep in range(5 - (int(expInfo['session']))/3):
 
 
@@ -394,9 +409,11 @@ for rep in range(5 - (int(expInfo['session']))/3):
     if rep > 0:
         trialmatrix = maintrialmatrix
         if rep == 1:
-            Instr1.setText('Your accuracy on the practice task was ' + str(corrP) + ' out of 12. If you are confused about the response keys for each task, please call over the experimenter. Press the spacebar to start the main experiment.')
+            if int(expInfo['session']) % 2 == 0:
+                Instr1.setText('Your accuracy on the practice task was ' + str(corrP) + ' out of 12. If you are confused about the response keys for each task, please call over the experimenter. Press the spacebar to continue.')
+            else:
+                Instr1.setText('Your accuracy on the practice task was ' + str(corrP) + ' out of 12. If you are confused about the response keys for each task, please call over the experimenter. Press the spacebar to begin the main experiment.')
             Instr1.setAutoDraw(True)
-            theseKeys = []
             while len(event.getKeys(keyList=['space'])) == 0:
                 win.flip()
             Instr1.setAutoDraw(False)
@@ -411,15 +428,15 @@ for rep in range(5 - (int(expInfo['session']))/3):
                 trials = range(50, 150)
             else:
                 trials = range(150, 250)
-            Instr_2b.setAutoDraw(True)
             bloop = 0
-            while int(expInfo['session'])%2 == 0 and bloop < 2:
-                event.clearEvents(eventType='keyboard')
-                if bloop == 1:
-                    Instr_2b.setAutoDraw(False)
-                    Instr_2c.setAutoDraw(True)
+            while int(expInfo['session']) % 2 == 0 and bloop < 2:
                 if event.getKeys(keyList=["space"]):
                     bloop += 1
+                if bloop == 0:
+                    Instr_2b.setAutoDraw(True)
+                else:
+                    Instr_2b.setAutoDraw(False)
+                    Instr_2c.setAutoDraw(True)
                 win.flip()
             Instr_2c.setAutoDraw(False)
         else:
@@ -448,11 +465,47 @@ for rep in range(5 - (int(expInfo['session']))/3):
                 else:
                     win.flip()
             Post_Q3.setAutoDraw(False)
-            Post_Instr_2.setAutoDraw(True)
             win.flip()
-            while len(event.getKeys(keyList=["space"])) == 0:
-                Post_Instr_2.setAutoDraw(False)
             trials = range(posttrials)
+        random.shuffle(CueTest_list)
+        Instr1.setText('In the instructions, you were informed that certain number cues either predicted task-switches (hard trials) or task-repeats (easy trials), or were non-predictive (neutral). Press the spacebar to continue.')
+        while int(expInfo['session']) % 2 == 0 and cloop < 5 * rep:
+            if cloop % 5 in [0,4]:
+                if cloop % 5 == 4:
+                    CueTest_list[cloop % 5 - 2][0].setAutoDraw(False)
+                    if rep == 1:
+                        Instr1.setText('Press the spacebar to begin the main experiment.')
+                    elif rep < 4:
+                        Instr1.setText('Press the spacebar to proceed.')
+                    else:
+                        Instr1.setText('In this session, a letter, digit, or symbol will be presented before the 5 Xs. If you can see or guess its identity, press the corresponding key (e.g., if you see 7, press 7; if you see \'b\', press b). If you did not see anything and cannot guess, then press enter. There is no time limit to respond if you are uncertain about your response. Press the spacebar to begin.')
+                if len(event.getKeys(keyList=['space'])) > 0:
+                    cloop += 1
+                Instr1.setAutoDraw(True)
+            else:
+                Instr1.setAutoDraw(False)
+                CueTest_list[cloop % 5 - 1][0].setAutoDraw(True)
+                CueTest_list[cloop % 5 - 2][0].setAutoDraw(False)
+                theseKeys = event.getKeys()
+                if len(theseKeys) > 0:
+                    theseKeys = theseKeys[0].split('_')[-1]
+                    try:
+                        theseKeys = int(theseKeys)
+                        if theseKeys == CueTest_list[cloop % 5 - 1][1]:
+                            acc = 1
+                        else:
+                            acc = 0
+                        thisExp.addData('Trial', 1000 + (rep - 1) * 3 + (cloop % 5))
+                        thisExp.addData('Response', theseKeys)
+                        thisExp.addData('Accuracy', acc)
+                        thisExp.addData('CorrectAnswer', CueTest_list[cloop % 5 - 1][1])
+                        event.clearEvents(eventType='keyboard')
+                        thisExp.nextEntry()
+                        cloop += 1
+                    except:
+                        pass
+            win.flip()
+        Instr1.setAutoDraw(False)
 
 
 
