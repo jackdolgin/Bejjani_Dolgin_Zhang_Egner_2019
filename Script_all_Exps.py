@@ -6,7 +6,8 @@ import os  # handy system and path functions
 import sys  # to get file system encoding
 
 # Ensure that relative paths start from the same directory as this script
-_thisDir = os.path.dirname(os.path.abspath(__file__)).decode(sys.getfilesystemencoding())
+_thisDir = (os.path.dirname(
+            os.path.abspath(__file__)).decode(sys.getfilesystemencoding()))
 os.chdir(_thisDir)
 
 # Store info about the experiment session
@@ -31,7 +32,8 @@ expInfo['frameRate'] = win.getActualFrameRate()
 # np.random.shuffle(cueversions)
 
 if int(expInfo['session']) == 1:
-    cueversions = [3,0,3,3,2,3,1,4,2,5,0,5,4,2,5,1,0,4,2,5,4,1,0,1,5.0,1,3,2,4,2,5,4,2,5]
+    cueversions = [3,0,3,3,2,3,1,4,2,5,0,5,4,2,5,1,0,4,2,5,4,1,0,1,5.0,1,3,2,4,
+                  2,5,4,2,5]
 elif int(expInfo['session']) == 2:
     cueversions = [1,2,5,4,1,5,4,0,0,1,4,4,0,2,3,2,3,3,5,1,0,5,3,2,1,3,5,4,0,2]
 elif int(expInfo['session']) == 3:
@@ -44,14 +46,15 @@ CueVersion = cueversions[int(expInfo['participant'])%100 - 1]
 expInfo['cueVersion'] = CueVersion
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expName, "ses_" + expInfo['session'])
+filename = (_thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'],
+           expName, "ses_" + expInfo['session']))
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, dataFileName=filename)
 # save a log file for detail verbose info
 logFile = logging.LogFile(filename+'.log', level=logging.EXP)
-logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a file
+logging.console.setLevel(logging.WARNING)                                       # this outputs to the screen, not a file
 
 
 
@@ -73,9 +76,12 @@ logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a f
 
 lowvowelSet = ['a','e','i','o','u']
 capvowelSet = ['A','E','I','O','U']
-lowconsonantSet = ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z']
-capconsonantSet = ['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z']
-instr_letters = ['O','o','K','k','U','u','S','s','C','c','W','w','Z','z','V','v','X','x']
+lowconsonantSet = ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s',
+                   't','v','w','x','y','z']
+capconsonantSet = ['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S',
+                   'T','V','W','X','Y','Z']
+instr_letters = ['O','o','K','k','U','u','S','s','C','c','W','w','Z','z','V',
+                 'v','X','x']
 
 cuelist = [[2,4,8,],[2,8,4],[4,2,8],[4,8,2],[8,2,4],[8,4,2]]
 cueSet = cuelist[CueVersion]
@@ -87,103 +93,170 @@ cueC = cueSet[2] #cue for predictive repeat
 ##------------------------INSTRUCTION SCREEN----------------------------------##
 
 Instr_1a = visual.TextStim(win=win, name='Instr_1a', color='black',
-    text='Please read these instructions carefully before you begin the experiment. Press the spacebar to continue.')
+    text = ('Please read these instructions carefully before you begin the '
+           'experiment. Press the spacebar to continue.'))
 
 Instr_1b = visual.TextStim(win=win, name='Instr_1b', color='black',
-    text='We are interested in how participants process demands on their attention. In this experiment, you will be asked to judge whether a letter is a CONSONANT or VOWEL or whether a letter is in UPPERCASE or LOWERCASE.')
+    text = ('We are interested in how participants process demands on their '
+           'attention. In this experiment, you will be asked to judge whether '
+           'a letter is a CONSONANT or VOWEL or whether a letter is in '
+           'UPPERCASE or LOWERCASE.'))
 
 if int(expInfo['session']) < 3:
 
     Instr_1c = visual.TextStim(win=win, name='Instr_1c', color='black',
-        text='On each trial, a pattern of five Xs will appear on-screen followed by a letter that you will categorize according to the color of its surrounding rectangle. The Xs are not relevant to the task that you are performing.')
+        text = ('On each trial, a pattern of five Xs will appear on-screen '
+              'followed by a letter that you will categorize according to the '
+              'color of its surrounding rectangle. The Xs are not relevant to '
+              'the task that you are performing.'))
 
     Instr_1c_2 = visual.TextStim(win=win, name='Instr_1c_2', color='black',
-        text='However, before the Xs are presented, number cues will flash on-screen. One of these cues ("' + str(cueA) + '") will precede trials in which the letter judgment (consonant/vowel vs. uppercase/lowercase) will switch from that of the previous trial.')
+        text = ('However, before the Xs are presented, number cues will flash '
+               'on-screen. One of these cues ("' + str(cueA) + '") will '
+               'precede  trials in which the letter judgment (consonant/vowel '
+               'vs. uppercase/lowercase) will switch from that of the '
+               'previous trial.'))
 
     Instr_1c_3 = visual.TextStim(win=win, name='Instr_1c_3', color='black',
-        text='One of the cues ("' + str(cueC) + '") will precede trials in which the letter judgment will remain the same as in the previous trial. One of the cues ("' + str(cueB) + '") will precede trials in which the letter judgment will either switch or remain the same from the previous trial. You may use this information to aid your performance.')
+        text = ('One of the cues ("' + str(cueC) + '") will precede trials in '
+               'which the letter judgment will remain the same as in the '
+               'previous trial. One of the cues ("' + str(cueB) + '") will '
+               'precede trials in which the letter judgment will either switch '
+               'or remain the same from the previous trial. You may use this '
+               'information to aid your performance.'))
 
     Ending = visual.TextStim(win=win, name='End', color='black',
-        text='You have finished the experiment! Please press spacebar to close out and let the experimenter know you\'re ready for the demographic survey.')
+        text = ('You have finished the experiment! Please press spacebar to '
+               'close out and let the experimenter know you\'re ready for the '
+               'demographic survey.'))
 
 else:
 
     Instr_1c = visual.TextStim(win=win, name='Instr_1c', color='black',
-        text='On each trial, a number cue will appear on-screen followed by a letter that you will categorize according to the color of its surrounding rectangle.')
+        text = ('On each trial, a number cue will appear on-screen followed by '
+               'a letter that you will categorize according to the color of '
+               'its surrounding rectangle.'))
 
     Instr_1c_2 = visual.TextStim(win=win, name='Instr_1c_2', color='black',
-        text='One of these cues ("' + str(cueA) + '") will precede trials in which the letter judgment (consonant/vowel vs. uppercase/lowercase) will switch from that of the previous trial. One of the cues ("' + str(cueC) + '") will precede trials in which the letter judgment will remain the same as in the previous trial.')
+        text = ('One of these cues ("' + str(cueA) + '") will precede trials '
+               'in which the letter judgment (consonant/vowel vs. '
+               'uppercase/lowercase) will switch from that of the previous '
+               'trial. One of the cues ("' + str(cueC) + '") will precede '
+               'trials in which the letter judgment will remain the same as in '
+               'the previous trial.'))
 
     Instr_1c_3 = visual.TextStim(win=win, name='Instr_1c_3', color='black',
-        text='One of the cues ("' + str(cueB) + '") will precede trials in which the letter judgment will either switch or remain the same from the previous trial. You may use this information to aid your performance.')
+        text = ('One of the cues ("' + str(cueB) + '") will precede trials in '
+               'which the letter judgment will either switch or remain the '
+               'same from the previous trial. You may use this information to '
+               'aid your performance.'))
 
     Ending = visual.TextStim(win=win, name='End', color='black',
-        text='You have finished the main part of the experiment! Please press spacebar to close out and let the experimenter know you\'re ready for the post-test.')
+        text = ('You have finished the main part of the experiment! Please '
+                'press spacebar to close out and let the experimenter know '
+                'you\'re ready for the post-test.'))
 
 Instr_1d = visual.TextStim(win=win, name='Instr_1d', color='black',
-    text='If the rectangle is blue, discriminate between vowel and consonant. Press the z/Z key to categorize the letter as a vowel and the 3 key on the numpad if it is a consonant.')
+    text = ('If the rectangle is blue, discriminate between vowel and '
+            'consonant. Press the z/Z key to categorize the letter as a vowel '
+            'and the 3 key on the numpad if it is a consonant.'))
 
 Instr_1e = visual.TextStim(win=win, name='Instr_1e', color='black',
-    text='If the rectangle is green, discriminate between lowercase and uppercase. Press the z/Z key if the letter is lowercase/small and the 3 key on the numpad if it is uppercase.')
+    text= ('If the rectangle is green, discriminate between lowercase and '
+           'uppercase. Press the z/Z key if the letter is lowercase/small and '
+           'the 3 key on the numpad if it is uppercase.'))
 
 Instr_1f = visual.TextStim(win=win, name='Instr_1f', color='black',
-    text='Respond to each letter stimulus as quickly as possible while still being accurate. In the beginning of the task, the letter will stay on-screen until you make your response, but this will change later in the task. Always press the z key with your LEFT index finger and the 3 key on the numpad with your RIGHT index finger.')
+    text = ('Respond to each letter stimulus as quickly as possible while '
+            'still being accurate. In the beginning of the task, the letter '
+            'will stay on-screen until you make your response, but this will '
+            'change later in the task. Always press the z key with your LEFT '
+            'index finger and the 3 key on the numpad with your RIGHT index '
+            'finger.'))
 
 Instr_1g = visual.TextStim(win=win, name='Instr_1g', color='black',
-    text='It is very important to stay focused during the experiment. Please respond accurately.')
+    text = ('It is very important to stay focused during the experiment. '
+            'Please respond accurately.'))
 
 Instr_1h = visual.TextStim(win=win, name='Instr_1h', color='black',
-    text='Performance feedback is provided. You will hear a high-frequency tone if you respond correctly and a low-frequency tone if you respond incorrectly. To give you a visualization of the task, press the spacebar to move on to the next page.')
+    text = ('Performance feedback is provided. You will hear a '
+            'high-frequency tone if you respond correctly and a low-frequency '
+            'tone if you respond incorrectly. To give you a visualization of '
+            'the task, press the spacebar to move on to the next page.'))
 
 Mapping = visual.ImageStim(win=win, name='Mapping',
     image = os.path.join('stimuli','Mapping.png'), size=(1,2))
 
 Instr_1i = visual.TextStim(win=win, name='Instr_1i', color='black',
-    text='Since you will be asked to distinguish between uppercase and lowercase in some trials, some sample letters will be presented to get you familiar with the font size. Press the spacebar to continue.')
+    text = ('Since you will be asked to distinguish between uppercase and '
+            'lowercase in some trials, some sample letters will be presented '
+            'to get you familiar with the font size. Press the spacebar '
+            'to continue.'))
 
 Instr_1j = visual.TextStim(win=win, name='Instr_1j', color='black',
-    text='To get acclimated with the demands of each task, you will start with some practice trials. Press the spacebar when you are ready to start the practice trials.')
+    text = ('To get acclimated with the demands of each task, you will start '
+           'with some practice trials. Press the spacebar when you are ready '
+           'to start the practice trials.'))
 
 Instr1 = visual.TextStim(win=win, name='Instr1', color='black',
-    text='You have finished the practice trials and you accurately answered $str(corrP) trials. The experiment starts now. Press the spacebar to continue.')
+    text = ('You have finished the practice trials and you accurately '
+           'answered $str(corrP) trials. The experiment starts now. '
+           'Press the spacebar to continue.'))
 
 Instr_1k = visual.TextStim(win=win, name='Instr_1k', color='black',
-    text='Press the spacebar to start the main experiment.')
+    text = 'Press the spacebar to start the main experiment.')
 
 Instr_2a = visual.TextStim(win=win, name='Instr_2a',color='black',
-    text='From now on, it is important to respond both accurately and quickly. Accurate but slow responses are now counted as incorrect trials. Please adjust the speed of your responses according to the performance feedback you receive. Press the spacebar to continue.')
+    text = ('From now on, it is important to respond both accurately and '
+           'quickly. Accurate but slow responses are now counted as incorrect '
+           'trials. Please adjust the speed of your responses according to the '
+           'performance feedback you receive. Press the spacebar to continue.'))
 
 Instr_2b = visual.TextStim(win=win, name='Instr_2b',color='black',
-    text='As a reminder, "' + str(cueA) +  '" will precede trials in which the letter judgment (consonant/vowel vs. uppercase/lowercase) will switch from that of the previous trial. "' + str(cueC) + '" will precede trials in which the letter judgment will remain the same as in the previous trial.')
+    text = ('As a reminder, "' + str(cueA) +  '" will precede trials in which '
+           'the letter judgment (consonant/vowel vs. uppercase/lowercase) will '
+           'switch from that of the previous trial. "' + str(cueC) + '" will '
+           'precede trials in which the letter judgment will remain the same '
+           'as in the previous trial.'))
 
 Instr_2c = visual.TextStim(win=win, name='Instr_1c_3', color='black',
-    text='"' + str(cueB) + '" will precede trials in which the letter judgment will either switch or remain the same from the previous trial. You may use this information to aid your performance. Press the spacebar to proceed.')
+    text = ('"' + str(cueB) + '" will precede trials in which the letter '
+           'judgment will either switch or remain the same from the previous '
+           'trial. You may use this information to aid your performance. Press '
+           'the spacebar to proceed.'))
 
 InstrText = visual.TextStim(win=win, name='InstrTextU', color='black',
-    text='default text', pos=(0, 0.5))
+    text = 'default text', pos=(0, 0.5))
 
 CueTestA = visual.TextStim(win=win, name='CueTest', color='black',
-    text='Press the number associated with only task-switch (Hard) trials',)
+    text = 'Press the number associated with only task-switch (Hard) trials',)
 
 CueTestB = visual.TextStim(win=win, name='CueTest', color='black',
-    text='Press the number unpredictive of the upcoming trial (neutral)')
+    text = 'Press the number unpredictive of the upcoming trial (neutral)')
 
 CueTestC = visual.TextStim(win=win, name='CueTest', color='black',
-    text='Press the number associated with only task-repeat (easy) trials')
+    text = 'Press the number associated with only task-repeat (easy) trials')
 
 CueTest_list = [[CueTestA, cueA], [CueTestB, cueB], [CueTestC, cueC]]
 
 Post_Instr_1 = visual.TextStim(win=win, name='Post_Instr_1', color='black',
-    text='Welcome to the post-test! You will answer a few questions about the experimental stimuli and do some judgement tasks. Press the spacebar to continue.')
+    text = ('Welcome to the post-test! You will answer a few questions about '
+           'the experimental stimuli and do some judgement tasks. Press the '
+           'spacebar to continue.'))
 
 Post_Q1 = visual.TextStim(win=win, name='Post_Q1', color='black',
-    text='Did you notice anything being briefly presented before the 5 Xs in each trial? Press Y if you noticed and N if you did not.')
+    text = ('Did you notice anything being briefly presented before the 5 Xs '
+            'in each trial? Press Y if you noticed and N if you did not.'))
 
 Post_Q2 = visual.TextStim(win=win, name='Post_Q2', color='black',
-    text='Were you aware of the identity of this brief stimulus? Press Y if you were and N if you were not.')
+    text = ('Were you aware of the identity of this brief stimulus? Press Y if '
+            'you were and N if you were not.'))
 
 Post_Q3 = visual.TextStim(win=win, name='Post_Q3', color='black',
-    text='What is the identity of this brief stimulus presented before the 5 Xs? If it is a number, press N; If it is a symbol, press S; If it is a letter, press L. Even if you are not explicitly aware of the stimulus, you are still encouraged to guess.')
+    text = ('What is the identity of this brief stimulus presented before the '
+            '5 Xs? If it is a number, press N; If it is a symbol, press S; If '
+            'it is a letter, press L. Even if you are not explicitly aware of '
+            'the stimulus, you are still encouraged to guess.'))
 
 
 ##-------------------------------SHAPES---------------------------------------##
@@ -194,7 +267,8 @@ Mask = visual.ImageStim(win=win, name='Mask',
     image = os.path.join('stimuli','Mask.png'),
     size=(0.42, 0.5), interpolate = True)
 
-StimLetter = visual.TextStim(win=win, name='StimLetter', text='default text', color='black')
+StimLetter = visual.TextStim(win=win, name='StimLetter', text='default text',
+                             color='black')
 
 polygon = visual.Rect( win=win, name='polygon', lineWidth=8, lineColor=1.0)
 
@@ -242,10 +316,12 @@ posttrials = 30
 extra_appearances = ([1,1,0,0])
 
 def expmatrix(trials):
-    Cue = [cueA]*int(round(trials*.25*.5)) + [cueB]*int(round(trials*.5)) + [cueC]*int(round(trials*.75*.5))
+    Cue = ([cueA]*int(round(trials*.25*.5)) + [cueB]*int(round(trials*.5))
+           + [cueC]*int(round(trials*.75*.5)))
 
     if trials == ptrials:
-        continuity = ['repeat']*int((trials/2)) + ['switch'] + ['repeat']*int((trials/2) - 1)
+        continuity = (['repeat']*int((trials/2)) + ['switch']
+                     + ['repeat']*int((trials/2) - 1))
         currentTask = 1
     else:
         continuity = ['switch']*62 + ['repeat']*188
@@ -262,9 +338,14 @@ def expmatrix(trials):
 
     #which stims appears
     if trials == ptrials:
-        stimSet = lowconsonantSet[:3] + capconsonantSet[:3] + lowvowelSet[:3] + capvowelSet[:3]
+        stimSet = (lowconsonantSet[:3] + capconsonantSet[:3]
+                  + lowvowelSet[:3] + capvowelSet[:3])
     else:
-        stimSet = lowconsonantSet*2 + capconsonantSet*2 + lowvowelSet*12 + capvowelSet*12 + lowconsonantSet[0+extra_appearances[0]:] + capconsonantSet[0+extra_appearances[1]:] + lowvowelSet[2 + extra_appearances[2]:] + capvowelSet[2 + extra_appearances[3]:]
+        stimSet = (lowconsonantSet*2 + capconsonantSet*2 + lowvowelSet*12
+                   + capvowelSet*12 + lowconsonantSet[0+extra_appearances[0]:]
+                   + capconsonantSet[0+extra_appearances[1]:]
+                   + lowvowelSet[2 + extra_appearances[2]:]
+                   + capvowelSet[2 + extra_appearances[3]:])
 
     np.random.shuffle(stimSet)
 
@@ -280,7 +361,8 @@ def expmatrix(trials):
         else:
             task.append(3-currentTask)
         currentTask = task[tr]
-        if ((currentTask == 1 and stimSet[tr] in (lowvowelSet + capvowelSet)) or (currentTask == 2 and stimSet[tr].islower())):
+        if ((currentTask == 1 and stimSet[tr] in (lowvowelSet + capvowelSet))
+           or (currentTask == 2 and stimSet[tr].islower())):
             corrAns.append(SRmapping_full[0])
         else:
             corrAns.append(SRmapping_full[1])
@@ -293,7 +375,8 @@ def expmatrix(trials):
         fix_duration.append(random.randint(fix_duration_min, fix_duration_max))
         stim_delay.append(random.randint(stim_delay_min, stim_delay_max))
 
-    return [stimSet, continuity, task, taskColor, corrAns, Cue, fix_duration, stim_delay]
+    return [stimSet, continuity, task, taskColor, corrAns, Cue,
+            fix_duration, stim_delay]
 
 maintrialmatrix = expmatrix(maintrials)
 postCues = np.repeat(cueSet, posttrials/len(cueSet))
@@ -469,17 +552,31 @@ for rep in range(5 - (int(expInfo['session']))/3):
             win.flip()
             trials = range(posttrials)
         random.shuffle(CueTest_list)
-        Instr1.setText('In the instructions, you were informed that certain number cues either predicted task-switches (hard trials) or task-repeats (easy trials), or were non-predictive (neutral). Press the spacebar to continue.')
+        Instr1.setText('In the instructions, you were informed that certain '
+                       'number cues either predicted task-switches (hard '
+                       'trials) or task-repeats (easy trials), or were non-'
+                       'predictive (neutral). Press the spacebar to continue.')
         while int(expInfo['session']) % 2 == 0 and cloop < 5 * rep:
             if cloop % 5 in [0,4]:
                 if cloop % 5 == 4:
                     CueTest_list[cloop % 5 - 2][0].setAutoDraw(False)
                     if rep == 1:
-                        Instr1.setText('Press the spacebar to begin the main experiment.')
+                        Instr1.setText('Press the spacebar to begin the '
+                                       'main experiment.')
                     elif rep < 4:
                         Instr1.setText('Press the spacebar to proceed.')
                     else:
-                        Instr1.setText('In this session, a letter, digit, or symbol will be presented before the 5 Xs. If you can see or guess its identity, press the corresponding key (e.g., if you see 7, press 7; if you see \'b\', press b). If you did not see anything and cannot guess, then press enter. There is no time limit to respond if you are uncertain about your response. Press the spacebar to begin.')
+                        Instr1.setText('In this session, a letter, digit, or '
+                                       'symbol will be presented before the 5 '
+                                       'Xs. If you can see or guess its '
+                                       'identity, press the corresponding key '
+                                       '(e.g., if you see 7, press 7; if you '
+                                       'see \'b\', press b). If you did not '
+                                       'see anything and cannot guess, then '
+                                       'press enter. There is no time limit to '
+                                       'respond if you are uncertain about '
+                                       'your response. Press the spacebar '
+                                       'to begin.')
                 if len(event.getKeys(keyList=['space'])) > 0:
                     cloop += 1
                 Instr1.setAutoDraw(True)
@@ -496,10 +593,12 @@ for rep in range(5 - (int(expInfo['session']))/3):
                             acc = 1
                         else:
                             acc = 0
-                        thisExp.addData('Trial', 1000 + (rep - 1) * 3 + (cloop % 5))
+                        thisExp.addData('Trial',
+                                        1000 + (rep - 1) * 3 + (cloop % 5))
                         thisExp.addData('Response', theseKeys)
                         thisExp.addData('Accuracy', acc)
-                        thisExp.addData('CorrectAnswer', CueTest_list[cloop % 5 - 1][1])
+                        thisExp.addData('CorrectAnswer',
+                                         CueTest_list[cloop % 5 - 1][1])
                         event.clearEvents(eventType='keyboard')
                         thisExp.nextEntry()
                         cloop += 1
@@ -582,24 +681,34 @@ for rep in range(5 - (int(expInfo['session']))/3):
                 if frameN == fix_duration + cue_duration:
                     Cue.tEnd = t
                     Cue.setAutoDraw(False)
-                elif frameN == (fix_duration + cue_duration + mask_delay) and (int(expInfo['session']) < 3):
+                elif frameN == ((fix_duration + cue_duration + mask_delay)
+                                        and (int(expInfo['session']) < 3)):
                     Mask.tStart = t
                     Mask.setAutoDraw(True)
-                elif frameN == (fix_duration + cue_duration + mask_delay + mask_duration) and (int(expInfo['session']) < 3):
+                elif frameN == ((fix_duration + cue_duration + mask_delay
+                        + mask_duration) and (int(expInfo['session']) < 3)):
                     Mask.tEnd = t
                     Mask.setAutoDraw(False)
                     if rep == 4:
                         win.callOnFlip(key_resp.clock.reset)  # t=0 on next screen flip
                         event.clearEvents(eventType='keyboard')
-            if (rep == 0 and frameN == fix_duration) or (4 > rep > 0 and frameN == fix_duration + cue_duration + mask_delay + mask_duration + stim_delay):
+            if ((rep == 0 and frameN == fix_duration) or
+                (4 > rep > 0 and frameN == fix_duration + cue_duration
+                + mask_delay + mask_duration + stim_delay)):
                 polygon.tStart = t
                 StimLetter.setAutoDraw(True)
                 polygon.setAutoDraw(True)
                 win.callOnFlip(key_resp.clock.reset)
                 event.clearEvents(eventType='keyboard')
-            elif 4 > rep > 1 and continuity == 'repeat' and frameN == fix_duration + cue_duration + mask_delay + mask_duration + stim_delay + round(rt_thresh):
+            elif (4 > rep > 1 and continuity == 'repeat'
+                        and frameN == fix_duration + cue_duration + mask_delay
+                             + mask_duration + stim_delay + round(rt_thresh)):
                 theseKeys = [None]
-            if len(theseKeys) > 0 and ((rep == 4 and frameN > fix_duration + cue_duration + mask_delay + mask_duration) or (4 > rep > 0 and frameN > fix_duration + cue_duration + mask_delay + mask_duration + stim_delay) or (rep == 0 and frameN > fix_duration)): # at least one key was pressed
+            if (len(theseKeys) > 0 and ((rep == 4 and frameN > fix_duration
+                        + cue_duration + mask_delay + mask_duration)
+                        or (4 > rep > 0 and frameN > fix_duration + cue_duration
+                        + mask_delay + mask_duration + stim_delay)
+                        or (rep == 0 and frameN > fix_duration))):              # at least one key was pressed
                 if theseKeys[-1] != None:
                     key_resp.rt = key_resp.clock.getTime()
                 # was this 'correct'?
