@@ -1,9 +1,9 @@
 from psychopy import locale_setup, gui, visual, core, data, event, logging, sound
-import numpy as np  # whole numpy lib is available, prepend 'np.'
+import numpy as np                                                              # whole numpy lib is available, prepend 'np.'
 from numpy.random import random, randint, normal, shuffle
 import random
-import os  # handy system and path functions
-import sys  # to get file system encoding
+import os                                                                       # handy system and path functions
+import sys                                                                      # to get file system encoding
 
 # Ensure that relative paths start from the same directory as this script
 _thisDir = (os.path.dirname(
@@ -11,12 +11,12 @@ _thisDir = (os.path.dirname(
 os.chdir(_thisDir)
 
 # Store info about the experiment session
-expName = 'PDR_script'  # from the Builder filename that created this script
+expName = 'PDR_script'                                                          # from the Builder filename that created this script
 expInfo = {'participant':'','session':''}
 dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
 if dlg.OK == False:
-    core.quit()  # user pressed cancel during popout
-expInfo['date'] = data.getDateStr()  # add a simple timestamp
+    core.quit()                                                                 # user pressed cancel during popout
+expInfo['date'] = data.getDateStr()                                             # add a simple timestamp
 expInfo['expName'] = expName
 
 # Setup the Window
@@ -35,7 +35,8 @@ if int(expInfo['session']) == 1:
     cueversions = [3,0,3,3,2,3,1,4,2,5,0,5,4,2,5,1,0,4,2,5,4,1,0,1,5.0,1,3,2,4,
                   2,5,4,2,5]
 elif int(expInfo['session']) == 2:
-    cueversions = [1,2,5,4,1,5,4,0,0,1,4,4,0,2,3,2,3,3,5,1,0,5,3,2,1,3,5,4,0,2]
+    cueversions = [1,2,5,4,1,5,4,0,0,1,4,4,0,2,3,2,3,3,5,1,0,5,3,2,1,3,5,4,0,2,
+                   0,2,4,1,3,5]
 elif int(expInfo['session']) == 3:
     cueversions = [4,4,4,4,2,5,0,1,5,5,1,4,3,0,2,4,1,3,3,1,3,2,0,0,5,2]
 elif int(expInfo['session']) == 4:
@@ -85,9 +86,9 @@ instr_letters = ['O','o','K','k','U','u','S','s','C','c','W','w','Z','z','V',
 
 cuelist = [[2,4,8,],[2,8,4],[4,2,8],[4,8,2],[8,2,4],[8,4,2]]
 cueSet = cuelist[CueVersion]
-cueA = cueSet[0] #cue for predictive switch
-cueB = cueSet[1] #non-predictive cue
-cueC = cueSet[2] #cue for predictive repeat
+cueA = cueSet[0]                                                                # cue for predictive switch
+cueB = cueSet[1]                                                                # non-predictive cue
+cueC = cueSet[2]                                                                # cue for predictive repeat
 
 
 ##------------------------INSTRUCTION SCREEN----------------------------------##
@@ -102,6 +103,17 @@ Instr_1b = visual.TextStim(win=win, name='Instr_1b', color='black',
            'a letter is a CONSONANT or VOWEL or whether a letter is in '
            'UPPERCASE or LOWERCASE.'))
 
+cueAinstr = (str(cueA) + '") will precede trials in which the letter judgment '
+             '(consonant/vowel vs. uppercase/ lowercase) will switch from that '
+             'of the previous trial.')
+
+cueBinstr = (str(cueB) + '") will precede trials in which the letter judgment '
+             'will either switch or remain the same from the previous trial. '
+             'You may use this information to aid your performance.')
+
+cueCinstr = (str(cueC) + '") will precede trials in which the letter judgment '
+             'will remain the same as in the previous trial.')
+
 if int(expInfo['session']) < 3:
 
     Instr_1c = visual.TextStim(win=win, name='Instr_1c', color='black',
@@ -112,18 +124,11 @@ if int(expInfo['session']) < 3:
 
     Instr_1c_2 = visual.TextStim(win=win, name='Instr_1c_2', color='black',
         text = ('However, before the Xs are presented, number cues will flash '
-               'on-screen. One of these cues ("' + str(cueA) + '") will '
-               'precede  trials in which the letter judgment (consonant/vowel '
-               'vs. uppercase/lowercase) will switch from that of the '
-               'previous trial.'))
+               'on-screen. One of these cues ("' + cueAinstr))
 
     Instr_1c_3 = visual.TextStim(win=win, name='Instr_1c_3', color='black',
-        text = ('One of the cues ("' + str(cueC) + '") will precede trials in '
-               'which the letter judgment will remain the same as in the '
-               'previous trial. One of the cues ("' + str(cueB) + '") will '
-               'precede trials in which the letter judgment will either switch '
-               'or remain the same from the previous trial. You may use this '
-               'information to aid your performance.'))
+        text = ('One of the cues ("' + cueCinstr + ' One of the cues "('
+                +  cueBinstr))
 
     Ending = visual.TextStim(win=win, name='End', color='black',
         text = ('You have finished the experiment! Please press spacebar to '
@@ -138,18 +143,11 @@ else:
                'its surrounding rectangle.'))
 
     Instr_1c_2 = visual.TextStim(win=win, name='Instr_1c_2', color='black',
-        text = ('One of these cues ("' + str(cueA) + '") will precede trials '
-               'in which the letter judgment (consonant/vowel vs. '
-               'uppercase/lowercase) will switch from that of the previous '
-               'trial. One of the cues ("' + str(cueC) + '") will precede '
-               'trials in which the letter judgment will remain the same as in '
-               'the previous trial.'))
+        text = ('One of these cues ("' + cueAinstr + ' One of the cues ("'
+                + cueCinstr))
 
     Instr_1c_3 = visual.TextStim(win=win, name='Instr_1c_3', color='black',
-        text = ('One of the cues ("' + str(cueB) + '") will precede trials in '
-               'which the letter judgment will either switch or remain the '
-               'same from the previous trial. You may use this information to '
-               'aid your performance.'))
+        text = 'One of the cues ("' + cueBinstr)
 
     Ending = visual.TextStim(win=win, name='End', color='black',
         text = ('You have finished the main part of the experiment! Please '
@@ -213,31 +211,29 @@ Instr_2a = visual.TextStim(win=win, name='Instr_2a',color='black',
            'performance feedback you receive. Press the spacebar to continue.'))
 
 Instr_2b = visual.TextStim(win=win, name='Instr_2b',color='black',
-    text = ('As a reminder, "' + str(cueA) +  '" will precede trials in which '
-           'the letter judgment (consonant/vowel vs. uppercase/lowercase) will '
-           'switch from that of the previous trial. "' + str(cueC) + '" will '
-           'precede trials in which the letter judgment will remain the same '
-           'as in the previous trial.'))
+    text = 'As a reminder, ("' + cueAinstr + ' ("' + cueCinstr)
 
-Instr_2c = visual.TextStim(win=win, name='Instr_1c_3', color='black',
-    text = ('"' + str(cueB) + '" will precede trials in which the letter '
-           'judgment will either switch or remain the same from the previous '
-           'trial. You may use this information to aid your performance. Press '
-           'the spacebar to proceed.'))
+Instr_2c = visual.TextStim(win=win, name='Instr_2c', color='black',
+    text = '("' + cueBinstr)
 
-InstrText = visual.TextStim(win=win, name='InstrTextU', color='black',
+InstrText = visual.TextStim(win=win, name='InstrText', color='black',
     text = 'default text', pos=(0, 0.5))
 
 CueTestA = visual.TextStim(win=win, name='CueTest', color='black',
-    text = 'Press the number associated with only task-switch (Hard) trials',)
+    text = 'Press the number associated with only task-switch (hard) trials.',)
 
 CueTestB = visual.TextStim(win=win, name='CueTest', color='black',
-    text = 'Press the number unpredictive of the upcoming trial (neutral)')
+    text = 'Press the number unpredictive of the upcoming trial (neutral).')
 
 CueTestC = visual.TextStim(win=win, name='CueTest', color='black',
-    text = 'Press the number associated with only task-repeat (easy) trials')
+    text = 'Press the number associated with only task-repeat (easy) trials.')
 
 CueTest_list = [[CueTestA, cueA], [CueTestB, cueB], [CueTestC, cueC]]
+
+Instr_probe_miss = visual.TextStim(win=win, name='Instr_probe_miss',
+    color='black', text = ('You answered at least one of the three '
+                            'cue-related questions incorrectly. Please '
+                            'press the spacebar to try again.'))
 
 Post_Instr_1 = visual.TextStim(win=win, name='Post_Instr_1', color='black',
     text = ('Welcome to the post-test! You will answer a few questions about '
@@ -287,28 +283,28 @@ soundfiles = [os.path.join('stimuli','ding.wav'),
 
 framelength = win.monitorFramePeriod
 
-fix_duration_min = 170 #2000 ms in Farooqui
-fix_duration_max = 255 #3000 ms in Farooqui
-cue_duration = 1 #11.7 ms in Farooqui
-mask_delay = 2 #23.2 ms in Farooqui
+fix_duration_min = 170                                                          # 2000 ms in Farooqui
+fix_duration_max = 255                                                          # 3000 ms in Farooqui
+cue_duration = 1                                                                # 11.7 ms in Farooqui
+mask_delay = 2                                                                  # 23.2 ms in Farooqui
 if int(expInfo['session']) < 3:
-    mask_duration = 42 #500 ms in Farooqui
+    mask_duration = 42                                                          # 500 ms in Farooqui
 else:
     mask_duration = 0
-stim_delay_min = 127 #1500 ms in Farooqui
-stim_delay_max = 212 #2500 ms in Farooqui
+stim_delay_min = 127                                                            # 1500 ms in Farooqui
+stim_delay_max = 212                                                            # 2500 ms in Farooqui
 
 
 ##--------------------------------CREATE TIMERS-------------------------------##
 
-globalClock = core.MonotonicClock() # to track the time since experiment started
-trialClock = core.Clock() #unlike globalclock, gets reset each trial
+globalClock = core.MonotonicClock()                                             # to track the time since experiment started
+trialClock = core.Clock()                                                       # unlike globalclock, gets reset each trial
 
 
 ##---------------------------TRIAL MATRIX & RANDOMIZATION---------------------##
 
 SRmapping_full = ['z', 'num_3']
-taskColorRGB = ["#0000ff","#00ff00"] #blue, green
+taskColorRGB = ["#0000ff","#00ff00"]                                            # blue, green
 
 ptrials = 12
 maintrials = 250
@@ -398,54 +394,16 @@ postmatrix = [postCues, [random.randint(fix_duration_min, fix_duration_max) for 
 ##----------------------------------------------------------------------------##
 
 
-Instr_1a.setAutoDraw(True)
 
-advance = 0
-aloop = 0
-while advance < 10:
-    if event.getKeys(keyList=["space"]):
-        advance += 1
-    if advance == 1:
-        Instr_1a.setAutoDraw(False)
-        Instr_1b.setAutoDraw(True)
-    elif advance == 2:
-        Instr_1b.setAutoDraw(False)
-        Instr_1c.setAutoDraw(True)
-    elif advance == 3:
-        Instr_1c.setAutoDraw(False)
-        while int(expInfo['session'])%2 == 0 and aloop < 2:
-            if aloop == 0:
-                Instr_1c_2.setAutoDraw(True)
-            else:
-                Instr_1c_2.setAutoDraw(False)
-                Instr_1c_3.setAutoDraw(True)
-            if event.getKeys(keyList=["space"]):
-                aloop += 1
+instr_list = [Instr_1a, Instr_1b, Instr_1c, Instr_1c_2, Instr_1c_3, Instr_1d,
+              Instr_1e, Instr_1f, Instr_1g, Instr_1h, Mapping, Instr_1i]
+
+for instr in range(len(instr_list)):
+    if instr not in range(3,5) or int(expInfo['session']) % 2 == 0:
+        instr_list[instr].setAutoDraw(True)
+        while len(event.getKeys(keyList=["space"])) == 0:
             win.flip()
-        Instr_1c_3.setAutoDraw(False)
-        Instr_1d.setAutoDraw(True)
-    elif advance == 4:
-        Instr_1d.setAutoDraw(False)
-        Instr_1e.setAutoDraw(True)
-    elif advance == 5:
-        Instr_1e.setAutoDraw(False)
-        Instr_1f.setAutoDraw(True)
-    elif advance == 6:
-        Instr_1f.setAutoDraw(False)
-        Instr_1g.setAutoDraw(True)
-    elif advance == 7:
-        Instr_1g.setAutoDraw(False)
-        Instr_1h.setAutoDraw(True)
-    elif advance == 8:
-        Instr_1h.setAutoDraw(False)
-        Mapping.setAutoDraw(True)
-    elif advance == 9:
-        Mapping.setAutoDraw(False)
-        Instr_1i.setAutoDraw(True)
-    else:
-        Instr_1i.setAutoDraw(False)
-
-    win.flip()
+        instr_list[instr].setAutoDraw(False)
 
 
 ##-------------------------START PSEUDO-PRACTICE------------------------------##
@@ -459,15 +417,11 @@ for trial in range(len(instr_letters)):
         textinstr = "This is a lowercase."
     polygon.setLineColor(taskColorinstr)
     InstrText.setText(textinstr)
-    InstrText.setAutoDraw(True)
-    polygon.setAutoDraw(True)
-    StimLetter.setAutoDraw(True)
+    [a_stim.setAutoDraw(True) for a_stim in [InstrText, polygon, StimLetter]]
     while len(event.getKeys(keyList=['space'])) == 0:
         win.flip()
 
-StimLetter.setAutoDraw(False)
-InstrText.setAutoDraw(False)
-polygon.setAutoDraw(False)
+[a_stim.setAutoDraw(False) for a_stim in [InstrText, polygon, StimLetter]]
 Instr_1j.setAutoDraw(True)
 while len(event.getKeys(keyList=['space'])) == 0:
     win.flip()
@@ -484,7 +438,6 @@ corrP = 0
 trialcounter = -ptrials
 trialmatrix = expmatrix(ptrials)
 trials = range(ptrials)
-cloop = 0
 for rep in range(5 - (int(expInfo['session']))/3):
 
 
@@ -494,9 +447,17 @@ for rep in range(5 - (int(expInfo['session']))/3):
         trialmatrix = maintrialmatrix
         if rep == 1:
             if int(expInfo['session']) % 2 == 0:
-                Instr1.setText('Your accuracy on the practice task was ' + str(corrP) + ' out of 12. If you are confused about the response keys for each task, please call over the experimenter. Press the spacebar to continue.')
+                Instr1.setText('Your accuracy on the practice task was '
+                               + str(corrP) + ' out of 12. If you are confused '
+                               'about the response keys for each task, please '
+                               'call over the experimenter. Press the spacebar '
+                               'to continue.')
             else:
-                Instr1.setText('Your accuracy on the practice task was ' + str(corrP) + ' out of 12. If you are confused about the response keys for each task, please call over the experimenter. Press the spacebar to begin the main experiment.')
+                Instr1.setText('Your accuracy on the practice task was '
+                               + str(corrP) + ' out of 12. If you are confused '
+                               'about the response keys for each task, please '
+                               'call over the experimenter. Press the spacebar '
+                               'to begin the main experiment.')
             Instr1.setAutoDraw(True)
             while len(event.getKeys(keyList=['space'])) == 0:
                 win.flip()
@@ -551,15 +512,17 @@ for rep in range(5 - (int(expInfo['session']))/3):
             Post_Q3.setAutoDraw(False)
             win.flip()
             trials = range(posttrials)
+        acclist = []
         random.shuffle(CueTest_list)
+        cloop = 0
         Instr1.setText('In the instructions, you were informed that certain '
                        'number cues either predicted task-switches (hard '
                        'trials) or task-repeats (easy trials), or were non-'
                        'predictive (neutral). Press the spacebar to continue.')
-        while int(expInfo['session']) % 2 == 0 and cloop < 5 * rep:
-            if cloop % 5 in [0,4]:
-                if cloop % 5 == 4:
-                    CueTest_list[cloop % 5 - 2][0].setAutoDraw(False)
+        while int(expInfo['session']) % 2 == 0 and cloop < 5:
+            if cloop in [0,4]:
+                if cloop == 4:
+                    CueTest_list[2][0].setAutoDraw(False)
                     if rep == 1:
                         Instr1.setText('Press the spacebar to begin the '
                                        'main experiment.')
@@ -582,25 +545,33 @@ for rep in range(5 - (int(expInfo['session']))/3):
                 Instr1.setAutoDraw(True)
             else:
                 Instr1.setAutoDraw(False)
-                CueTest_list[cloop % 5 - 1][0].setAutoDraw(True)
-                CueTest_list[cloop % 5 - 2][0].setAutoDraw(False)
+                CueTest_list[cloop - 1][0].setAutoDraw(True)
                 theseKeys = event.getKeys()
                 if len(theseKeys) > 0:
                     theseKeys = theseKeys[0].split('_')[-1]
+                    CueTest_list[cloop - 1][0].setAutoDraw(False)
                     try:
                         theseKeys = int(theseKeys)
-                        if theseKeys == CueTest_list[cloop % 5 - 1][1]:
-                            acc = 1
+                        if theseKeys == CueTest_list[cloop - 1][1]:
+                            acclist.append(1)
                         else:
-                            acc = 0
-                        thisExp.addData('Trial',
-                                        1000 + (rep - 1) * 3 + (cloop % 5))
-                        thisExp.addData('Response', theseKeys)
-                        thisExp.addData('Accuracy', acc)
-                        thisExp.addData('CorrectAnswer',
-                                         CueTest_list[cloop % 5 - 1][1])
+                            acclist.append(0)
                         event.clearEvents(eventType='keyboard')
-                        thisExp.nextEntry()
+                        if cloop == 3:
+                            if np.mean(acclist[-3:]) != 1:
+                                random.shuffle(CueTest_list)
+                                Instr_probe_miss.setAutoDraw(True)
+                                while (len(event.getKeys(keyList=["space"]))
+                                        == 0):
+                                    win.flip()
+                                Instr_probe_miss.setAutoDraw(False)
+                                cloop = 0
+                            else:
+                                thisExp.addData('CueProbe', rep)
+                                thisExp.addData('False_Attempts',
+                                                len(acclist)/3 - 1)
+                                thisExp.addData('Full_attempt_list', acclist)
+                                thisExp.nextEntry()
                         cloop += 1
                     except:
                         pass
@@ -609,16 +580,16 @@ for rep in range(5 - (int(expInfo['session']))/3):
 
 
 
-    RTF = [] #collect RTs from previous trials
+    RTF = []                                                                    #collect RTs from previous trials
 
 
     ##-----------------------TRIAL FOR LOOP BEGINS----------------------------##
 
     for trial in trials:
-        frameN = -1 # number of completed frames (so 0 is the first frame)
+        frameN = -1                                                             # number of completed frames (so 0 is the first frame)
         t = 0
         overalltime = globalClock.getTime()
-        trialClock.reset()  # clock
+        trialClock.reset()                                                      # clock
         continueRoutine = True
 
 
@@ -681,16 +652,16 @@ for rep in range(5 - (int(expInfo['session']))/3):
                 if frameN == fix_duration + cue_duration:
                     Cue.tEnd = t
                     Cue.setAutoDraw(False)
-                elif frameN == ((fix_duration + cue_duration + mask_delay)
+                elif (frameN == (fix_duration + cue_duration + mask_delay)
                                         and (int(expInfo['session']) < 3)):
                     Mask.tStart = t
                     Mask.setAutoDraw(True)
-                elif frameN == ((fix_duration + cue_duration + mask_delay
+                elif (frameN == (fix_duration + cue_duration + mask_delay
                         + mask_duration) and (int(expInfo['session']) < 3)):
                     Mask.tEnd = t
                     Mask.setAutoDraw(False)
                     if rep == 4:
-                        win.callOnFlip(key_resp.clock.reset)  # t=0 on next screen flip
+                        win.callOnFlip(key_resp.clock.reset)                    # t=0 on next screen flip
                         event.clearEvents(eventType='keyboard')
             if ((rep == 0 and frameN == fix_duration) or
                 (4 > rep > 0 and frameN == fix_duration + cue_duration
@@ -751,11 +722,11 @@ for rep in range(5 - (int(expInfo['session']))/3):
             thisExp.addData('StimLetterStartTime', polygon.tStart)
             thisExp.addData('StimLetterEndTime', polygon.tEnd)
             sound_clip.setSound(soundp, secs=-1)
-            sound_clip.play()  # start the sound (it finishes automatically)
+            sound_clip.play()                                                   # start the sound (it finishes automatically)
         thisExp.addData('Response', theseKeys[-1])
         thisExp.addData('CorrectAnswer', corrAns)
         thisExp.addData('Accuracy', key_resp.corr)
-        if theseKeys[-1] != None:  # we had a response
+        if theseKeys[-1] != None:                                               # we had a response
             thisExp.addData('RT', key_resp.rt)
         thisExp.addData('fixationStartTimeinOverallExp', overalltime)
         thisExp.addData('fixationStartTime', Fixation.tStart)
@@ -779,7 +750,7 @@ while len(event.getKeys(keyList=["space"])) == 0:
 Ending.setAutoDraw(False)
 
 # these shouldn't be strictly necessary (should auto-save)
-thisExp.saveAsWideText(filename+'.csv')
+thisExp.saveAsWideText(filename + '.csv')
 thisExp.saveAsPickle(filename)
 logging.flush()
 # make sure everything is closed down
