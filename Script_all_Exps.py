@@ -240,6 +240,13 @@ Post_Instr_1 = visual.TextStim(win=win, name='Post_Instr_1', color='black',
            'the experimental stimuli and do some judgement tasks. Press the '
            'spacebar to continue.'))
 
+Post_Instr_2 = ('In this session, a letter, digit, or symbol will be '
+'presented, before the 5 Xs. If you can see or guess its identity, press '
+'the corresponding key (e.g., if you see 7, press 7; if you see '
+'\'b\', press b). If you did not see anything and cannot '
+'guess, then press enter. There is no time limit to respond if '
+'are uncertain about your response. Press the spacebar to begin.')
+
 Post_Q1 = visual.TextStim(win=win, name='Post_Q1', color='black',
     text = ('Did you notice anything being briefly presented before the 5 Xs '
             'in each trial? Press Y if you noticed and N if you did not.'))
@@ -529,17 +536,7 @@ for rep in range(5 - (int(expInfo['session']))/3):
                     elif rep < 4:
                         Instr1.setText('Press the spacebar to proceed.')
                     else:
-                        Instr1.setText('In this session, a letter, digit, or '
-                                       'symbol will be presented before the 5 '
-                                       'Xs. If you can see or guess its '
-                                       'identity, press the corresponding key '
-                                       '(e.g., if you see 7, press 7; if you '
-                                       'see \'b\', press b). If you did not '
-                                       'see anything and cannot guess, then '
-                                       'press enter. There is no time limit to '
-                                       'respond if you are uncertain about '
-                                       'your response. Press the spacebar '
-                                       'to begin.')
+                        Instr1.setText(Post_Instr_2)
                 if len(event.getKeys(keyList=['space'])) > 0:
                     cloop += 1
                 Instr1.setAutoDraw(True)
@@ -576,6 +573,13 @@ for rep in range(5 - (int(expInfo['session']))/3):
                     except:
                         pass
             win.flip()
+        if expInfo['session'] == '1' and rep == 4:
+            event.clearEvents(eventType='keyboard')
+            Instr1.setText(Post_Instr_2)
+            Instr1.setAutoDraw(True)
+            print "hello"
+            while (len(event.getKeys(keyList=["space"])) == 0):
+                win.flip()
         Instr1.setAutoDraw(False)
 
 
