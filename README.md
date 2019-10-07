@@ -10,4 +10,4 @@ Preregistered Direct Replication, Stage 1 in principle acceptance at *Psychologi
 * The task script for all four experiments in this study is a single python file, `Script_all_Exps.py`. The script also includes the post-task for experiments 1 and 2. Entering the session number in the script's popup corresponds with the experiment number.
 
 ## Dependencies
-The task script was written in PsychoPy [1.90.3](https://github.com/psychopy/psychopy/releases/tag/1.90.3) utilizing Python [2.7.0](https://www.python.org/downloads/release/python-270/). See [here](https://psychologyit.uconn.edu/2017/09/20/instructions-for-installing-psychopy/) for help installing PsychoPy.
+The task script was written in PsychoPy [1.90.3](https://github.com/psychopy/psychopy/releases/tag/1.90.3). See [here](https://psychologyit.uconn.edu/2017/09/20/instructions-for-installing-psychopy/) for help installing PsychoPy.
